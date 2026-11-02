@@ -14,7 +14,7 @@ window.WEDDING = {
   hi: {
     meta: { title: 'चिनाब एवं सिद्धार्थ | शुभ विवाह' },
     nav: { home: 'होम', wedding: 'विवाह', rituals: 'रस्में', reception: 'स्वागत', rsvp: 'RSVP', menu: 'मेनू', close: 'बंद करें' }, 
-    opening: { blessing: 'शुभ विवाह', bride: 'चिनाब', and: 'एवं', groom: 'सिद्धार्थ', hint: 'नीचे स्क्रॉल करें' },
+    opening: { blessing: 'शुभ विवाह', bride: 'चिनाब', and: 'एवं', groom: 'सिद्धार्थ', hint: 'ऊपर स्क्रॉल करें' },
     fort: { invocation: '॥ श्री गणेशाय नमः ॥' },
     announce: {
       lead: 'दोनों परिवारों के आशीर्वाद के साथ',
@@ -65,7 +65,7 @@ window.WEDDING = {
   en: {
     meta: { title: 'Chinab & Siddharth | Wedding Invitation' },
     nav: { home: 'Home', wedding: 'Wedding', rituals: 'Rituals', reception: 'Reception', rsvp: 'RSVP', menu: 'Menu', close: 'Close' },
-    opening: { blessing: 'The auspicious wedding of', bride: 'Chinab', and: '&', groom: 'Siddharth', hint: 'Scroll toward the sunset' },
+    opening: { blessing: 'The auspicious wedding of', bride: 'Chinab', and: '&', groom: 'Siddharth', hint: 'Scroll up' },
     fort: { invocation: 'Om Shree Ganeshay Namah' },
     announce: {
       lead: 'Together with their families',
