@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>चिनाब एवं सिद्धार्थ | शुभ विवाह</title>
+<meta name="description" content="चिनाब त्रिवेदी एवं सिद्धार्थ भट्टाचार्य - विवाह निमंत्रण">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#1d2a4c">
+<meta property="og:title" content="चिनाब एवं सिद्धार्थ | शुभ विवाह">
+<meta property="og:description" content="18 जनवरी 2027, मिलन रिज़ॉर्ट, कोटा">
+<meta property="og:image" content="assets/scene/lake-still.webp">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%235c1718'/%3E%3Ccircle cx='16' cy='17' r='8' fill='%23e6c671'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Devanagari:wght@400;500;600&family=Spectral:ital,wght@0,400;0,500;1,400&family=Tiro+Devanagari+Hindi&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="assets/scene/lake-still.webp" media="(min-aspect-ratio: 3/5)">
+<link rel="preload" as="image" href="assets/scene/lake-still-portrait.webp" media="(max-aspect-ratio: 3/5)">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<a class="skip" href="#wedding" data-i18n="nav.wedding"></a>
+
+<header class="nav" id="nav">
+  <button class="nav__menu" id="menuBtn" type="button" aria-expanded="false" aria-controls="navLinks" data-i18n="nav.menu"></button>
+  <nav class="nav__links" id="navLinks" aria-label="Sections">
+    <a href="#home" data-i18n="nav.home"></a>
+    <a href="#wedding" data-i18n="nav.wedding"></a>
+    <a href="#rituals" data-i18n="nav.rituals"></a>
+    <a href="#reception" data-i18n="nav.reception"></a>
+    <a href="#rsvp" data-i18n="nav.rsvp"></a>
+  </nav>
+  <div class="lang" role="group" aria-label="Language">
+    <button type="button" data-lang="hi" lang="hi">हिंदी</button>
+    <span aria-hidden="true">|</span>
+    <button type="button" data-lang="en" lang="en">English</button>
+  </div>
+</header>
+
+<!-- The painted world behind the journey: first paint is a still, then the WebGL camera takes over -->
+<div class="world" id="world" aria-hidden="true">
+  <picture>
+    <source media="(max-aspect-ratio: 3/5)" srcset="assets/scene/lake-still-portrait.webp">
+    <img class="world__poster" id="poster" src="assets/scene/lake-still.webp" alt="" fetchpriority="high">
+  </picture>
+  <canvas id="stage"></canvas>
+</div>
+
+<main>
+  <section class="journey" id="home">
+    <div class="journey__pin">
+      <div class="opening" id="openingText">
+        <p class="opening__blessing" data-i18n="opening.blessing"></p>
+        <h1 class="opening__names">
+          <span data-i18n="opening.bride"></span>
+          <span class="opening__and" data-i18n="opening.and"></span>
+          <span data-i18n="opening.groom"></span>
+        </h1>
+      </div>
+      <p class="hint" id="hint"><span data-i18n="opening.hint"></span><i aria-hidden="true"></i></p>
+      <svg class="birds" id="birds" viewBox="0 0 120 40" aria-hidden="true"><g fill="none" stroke="#2b1a20" stroke-width="1.6" stroke-linecap="round"><path d="M4 24c5-6 9-6 12-1 3-5 7-5 12 1"/><path d="M48 10c5-6 9-6 12-1 3-5 7-5 12 1"/><path d="M88 28c4-5 7-5 10-1 2-4 6-4 10 1"/></g></svg>
+      <div class="fort-title" id="fortTitle">
+        <p class="fort-title__om" data-i18n="fort.invocation"></p>
+        <img class="fort-title__ganesh" src="assets/art/ganesha.png" alt="" width="240" height="250">
+      </div>
+    </div>
+    <!-- Calm version: for reduced motion or no WebGL -->
+    <div class="calm-scenes">
+      <picture>
+        <source media="(max-aspect-ratio: 3/5)" srcset="assets/scene/lake-still-portrait.webp">
+        <img src="assets/scene/lake-still.webp" data-i18n-alt="calm.lake" alt="" loading="eager">
+      </picture>
+      <img src="assets/scene/fort-still.webp" data-i18n-alt="calm.fort" alt="" loading="lazy">
+    </div>
+  </section>
+
+  <section class="wall" aria-hidden="true">
+    <div class="arcade"></div>
+    <div class="wall__body"></div>
+    <div class="merlons"></div>
+  </section>
+
+  <section class="haveli" id="families" aria-labelledby="famHead">
+    <div class="haveli__sky" aria-hidden="true">
+      <img class="haveli__fort" src="assets/scene/fort-night.webp" alt="" loading="lazy" data-drift=".12">
+    </div>
+    <h2 class="haveli__head" id="famHead" data-i18n="families.heading"></h2>
+    <div class="haveli__facade" id="facade">
+      <div class="merlons merlons--top" aria-hidden="true"></div>
+      <div class="winrow" aria-hidden="true"></div>
+      <div class="invite" id="wedding" tabindex="-1">
+        <p class="invite__lead rv" data-i18n="announce.lead"></p>
+        <div class="houses">
+          <article class="house">
+            <div class="jharokha">
+              <div class="jharokha__glow"></div>
+              <img class="jharokha__frame" src="assets/art/jharokha.webp" alt="" loading="lazy" width="760" height="980">
+              <div class="jharokha__text">
+                <h3 data-i18n="families.bride.name"></h3>
+                <p data-i18n="families.bride.home"></p>
+              </div>
+            </div>
+            <p class="house__parents" data-i18n="families.bride.parents"></p>
+            <p class="house__addr" data-i18n="families.bride.address"></p>
+          </article>
+          <p class="houses__and" data-i18n="announce.and"></p>
+          <article class="house">
+            <div class="jharokha">
+              <div class="jharokha__glow"></div>
+              <img class="jharokha__frame" src="assets/art/jharokha.webp" alt="" loading="lazy" width="760" height="980">
+              <div class="jharokha__text">
+                <h3 data-i18n="families.groom.name"></h3>
+                <p data-i18n="families.groom.home"></p>
+              </div>
+            </div>
+            <p class="house__parents" data-i18n="families.groom.parents"></p>
+            <p class="house__addr" data-i18n="families.groom.address"></p>
+          </article>
+        </div>
+        <p class="invite__msg rv" data-i18n="announce.message"></p>
+        <div class="when">
+          <h3 class="when__label" data-i18n="wedding.heading"></h3>
+          <div class="when__date rv">
+            <span class="when__day" data-i18n="wedding.day"></span>
+            <span class="when__my" data-i18n="wedding.monthYear"></span>
+          </div>
+          <div class="when__rest rv">
+            <p class="when__line"><span data-i18n="wedding.weekday"></span>, <span data-i18n="wedding.time"></span></p>
+            <p class="when__venue" data-i18n="wedding.venue"></p>
+            <p class="when__line" data-i18n="wedding.place"></p>
+            <a class="textlink" id="mapWedding" target="_blank" rel="noopener" data-i18n="wedding.directions"></a>
+          </div>
+        </div>
+      </div>
+      <div class="winrow winrow--low" aria-hidden="true"></div>
+    </div>
+  </section>
+
+  <section class="gallery" id="rituals" aria-labelledby="ritHead">
+    <div class="gallery__pin" id="galleryPin">
+      <div class="vine vine--top" aria-hidden="true"></div>
+      <div class="gallery__track" id="galleryTrack">
+        <header class="gallery__intro">
+          <h2 id="ritHead" data-i18n="rituals.heading"></h2>
+          <p data-i18n="rituals.intro"></p>
+          <p class="gallery__nudge"><span data-i18n="rituals.nudge"></span><i aria-hidden="true"></i></p>
+        </header>
+        <!-- ritual panels are rendered from content.js -->
+      </div>
+      <div class="gallery__lamps" id="lamps" aria-hidden="true"></div>
+      <div class="vine vine--bottom" aria-hidden="true"></div>
+    </div>
+  </section>
+
+  <section class="route" aria-label="Kota to Jabalpur">
+    <svg class="route__map" id="routeMap" viewBox="0 0 1200 560" aria-hidden="true" preserveAspectRatio="xMidYMid meet">
+      <defs><linearGradient id="hillA" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2c6066"/><stop offset="1" stop-color="#2c6066" stop-opacity="0"/></linearGradient><linearGradient id="hillB" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1f4f58"/><stop offset="1" stop-color="#1f4f58" stop-opacity="0"/></linearGradient><linearGradient id="hillC" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2d4e72"/><stop offset="1" stop-color="#2d4e72" stop-opacity="0"/></linearGradient><filter id="rough" filterUnits="userSpaceOnUse" x="-1000" y="-50" width="3400" height="800"><feTurbulence type="fractalNoise" baseFrequency=".03" numOctaves="3" seed="6"/><feDisplacementMap in="SourceGraphic" scale="5"/></filter></defs>
+      <g filter="url(#rough)">
+        <!-- Aravalli ranges around Kota and Bundi -->
+        <path fill="url(#hillA)" d="M-1000 330c200-40 500-40 940-30 50-70 90-100 130-70 40-70 90-80 130-30 50-50 100-40 150 30 40-20 90-10 130 40 100 60 200 90 320 120v240H-1000z"/>
+        <path fill="url(#hillB)" d="M-1000 400c300-40 600-60 940-40 70-50 130-60 190-20 60-40 130-40 190 10 50-14 100-4 150 30 80 40 180 60 260 80v180H-1000z"/>
+        <!-- A Rajput fort and chhatri on the ridge -->
+        <g fill="#c69a60">
+          <path d="M168 232h96v-44h-16v-14h-14v14h-20v-26h-14v26h-14v-12h-18z"/><path d="M178 174c0-14 8-20 14-24 6 4 14 10 14 24zM232 162c0-12 6-16 12-20 6 4 12 8 12 20z"/>
+        </g>
+        <g fill="#7c5531"><path d="M182 206h10v14h-10zM204 206h10v14h-10zM226 206h10v14h-10zM246 206h10v14h-10z"/></g>
+        <!-- Vindhya country, the land between -->
+        <path fill="url(#hillC)" d="M260 560c120-90 270-120 370-90 80-30 170-30 240 10 100-34 200-30 400 30 200 30 500 20 800 10v160H260z"/>
+        <!-- The Narmada, with marble rocks at Jabalpur -->
+        <path fill="none" stroke="#6fb3a8" stroke-width="12" stroke-linecap="round" d="M560 524c110-26 190-6 290-30s170-62 400-56"/>
+        <path fill="none" stroke="#d6efe4" stroke-width="2.5" stroke-dasharray="26 18" d="M580 520c110-26 180-6 280-30s170-58 370-54"/>
+        <g fill="#efe9da"><path d="M880 452l18-46 16 10 14-30 18 22 12 44z"/><path d="M968 448l12-38 18 12 14-24 20 44z"/></g>
+        <g fill="#a9b6c6"><path d="M914 416l14-30 2 66-16 0zM998 422l14-34 2 60h-16z"/></g>
+      </g>
+      <path d="M216 240c130 16 160 90 290 110s240-40 330-10c50 16 70 42 90 56" fill="none" stroke="#f0e2c4" stroke-opacity=".28" stroke-width="3" stroke-dasharray="2 12" stroke-linecap="round"/>
+      <path class="route__line" id="routeLine" d="M216 240c130 16 160 90 290 110s240-40 330-10c50 16 70 42 90 56" fill="none" stroke="#e6c671" stroke-width="5" stroke-linecap="round"/>
+      <g fill="#b5361f" stroke="#f0e2c4" stroke-width="3"><circle cx="216" cy="240" r="10"/><circle id="routeEnd" cx="926" cy="396" r="10"/></g>
+      <text class="route__label" x="150" y="130" text-anchor="middle" data-i18n="route.from"></text>
+      <text class="route__label" x="926" y="350" text-anchor="middle" data-i18n="route.to"></text>
+      <text class="route__river-label" x="1110" y="424" text-anchor="middle" data-i18n="route.river"></text>
+    </svg>
+    <p class="route__line-text rv" data-i18n="route.line"></p>
+  </section>
+
+  <section class="reception" id="reception" aria-labelledby="recHead">
+    <div class="reception__art" role="img" data-i18n-label="reception.art">
+      <img src="assets/art/jb-sky.webp" alt="" loading="lazy" data-drift=".05">
+      <img src="assets/art/jb-gorge.webp" alt="" loading="lazy" data-drift=".1">
+      <img src="assets/art/jb-river.webp" alt="" loading="lazy" data-drift=".0">
+    </div>
+    <div class="reception__text">
+      <h2 id="recHead" class="rv" data-i18n="reception.heading"></h2>
+      <p class="reception__date rv" data-i18n="reception.date"></p>
+      <p class="reception__venue rv" data-i18n="reception.venue"></p>
+      <p class="reception__place rv" data-i18n="reception.place"></p>
+      <a class="textlink textlink--light" id="mapReception" target="_blank" rel="noopener" data-i18n="reception.directions"></a>
+    </div>
+  </section>
+
+  <section class="finale" id="rsvp" aria-labelledby="rsvpHead">
+    <img class="finale__river" src="assets/art/jb-river-more.webp" alt="" aria-hidden="true" loading="lazy">
+    <div class="finale__text">
+      <h2 id="rsvpHead" data-i18n="rsvp.heading"></h2>
+      <div class="finale__act">
+      <button class="rsvp-lamp" id="lampBtn" type="button" data-i18n-label="rsvp.lampLabel" aria-expanded="false" aria-controls="rsvpBlock">
+        <svg class="rsvp-lamp__art" viewBox="0 0 64 64" aria-hidden="true" fill="none" stroke-linejoin="round" stroke-linecap="round">
+          <defs><radialGradient id="lampGlow"><stop offset="0" stop-color="#f8cf67" stop-opacity=".6"/><stop offset="1" stop-color="#f8cf67" stop-opacity="0"/></radialGradient></defs>
+          <circle class="rsvp-lamp__glow" cx="32" cy="24" r="30" fill="url(#lampGlow)"/>
+          <g class="rsvp-lamp__wick"><g class="rsvp-lamp__flame">
+            <path d="M32 5c6 9 10 15 5 24-1.6 2.9-6.4 2.9-8 0-5-9-1-15 3-24z" fill="#f8cf67" stroke="#b5361f" stroke-width="1.25"/>
+            <path d="M32 19c2.6 4.3 3.6 7 1.8 10-.9 1.5-2.7 1.5-3.6 0C28.4 26 29.8 22.7 32 19z" fill="#b5361f"/>
+          </g></g>
+          <path d="M9 36h46c0 11-10 18-23 18S9 47 9 36z" fill="#9c1f24" stroke="#e6c671" stroke-width="1.25"/>
+          <path d="M13 36.5c4 2.2 10 3.4 19 3.4s15-1.2 19-3.4" stroke="#e6c671" stroke-width="1.25"/>
+          <path d="M22 58h20" stroke="#e6c671" stroke-width="1.25"/>
+        </svg>
+      </button>
+      <p class="rsvp-lamp__prompt" data-i18n="rsvp.lampPrompt"></p>
+      <div class="reply" id="rsvpBlock" hidden>
+          <p class="reply__lead" id="rsvpLead" data-i18n="rsvp.cta"></p>
+          <div class="chips" role="radiogroup" aria-labelledby="rsvpLead">
+            <button class="chip" type="button" role="radio" aria-checked="false" tabindex="0" data-opt="both" data-i18n="rsvp.optBoth"></button>
+            <button class="chip" type="button" role="radio" aria-checked="false" tabindex="-1" data-opt="wed" data-i18n="rsvp.optWed"></button>
+            <button class="chip" type="button" role="radio" aria-checked="false" tabindex="-1" data-opt="rec" data-i18n="rsvp.optRec"></button>
+            <button class="chip" type="button" role="radio" aria-checked="false" tabindex="-1" data-opt="no" data-i18n="rsvp.optNo"></button>
+          </div>
+          <div class="guests" id="guestsRow">
+            <span id="guestsLab" data-i18n="rsvp.guestsLabel"></span>
+            <div class="stepper" role="group" aria-labelledby="guestsLab">
+              <button type="button" id="gDec" data-i18n-label="rsvp.guestsDec"><span aria-hidden="true">−</span></button>
+              <output id="gCount" aria-live="polite"></output>
+              <button type="button" id="gInc" data-i18n-label="rsvp.guestsInc"><span aria-hidden="true">+</span></button>
+            </div>
+          </div>
+          <label class="reply__name"><span data-i18n="rsvp.nameLabel"></span><input id="gName" type="text" autocomplete="name" maxlength="60" enterkeyhint="done"></label>
+          <a class="cta reply__send" id="waLink" role="link" aria-disabled="true" target="_blank" rel="noopener" data-i18n="rsvp.whatsapp"></a>
+      </div>
+      <p class="finale__contact"><span data-i18n="rsvp.label"></span>: <a id="telLink"></a></p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<noscript>
+  <div class="nojs">
+    <h1>चिनाब त्रिवेदी एवं सिद्धार्थ भट्टाचार्य</h1>
+    <p>विवाह: 18 जनवरी 2027, सोमवार, प्रातः 11 बजे, मिलन रिज़ॉर्ट, कोटा, राजस्थान</p>
+    <p>स्वागत समारोह: 20 जनवरी 2027, होटल युवराज ग्रैंड, विजयनगर, जबलपुर</p>
+    <p>RSVP: <a href="tel:+918107771682">+91 8107771682</a></p>
+  </div>
+</noscript>
+
+<script src="js/content.js"></script>
+<script src="js/script.js"></script>
+</body>
+</html>
