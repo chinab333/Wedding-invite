@@ -44,6 +44,9 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .lang button { padding: 8px 2px; opacity: .7; border-bottom: 1px solid transparent; }
 .lang button[aria-pressed="true"] { opacity: 1; border-bottom-color: var(--gold-light); }
 .lang span { opacity: .5; }
+.sound { display: grid; place-items: center; width: 36px; height: 36px; margin-left: 14px; color: inherit; opacity: .86; }
+.sound:hover { opacity: 1; }
+.sound[aria-pressed="true"] .sound__off, .sound[aria-pressed="false"] .sound__on { display: none; }
 
 /* ---------- The world: canvas pinned behind the journey ---------- */
 .world { position: fixed; inset: 0; z-index: 0; height: 100vh; height: 100lvh; overflow: hidden; background: #e8a24f; }
@@ -124,28 +127,6 @@ main { position: relative; z-index: 1; }
 .house__parents { margin-top: 14px; font-size: 1rem; line-height: 1.55; }
 .house__addr { font-size: .84rem; line-height: 1.55; opacity: .86; margin-top: .3em; }
 
-/* ---------- The painted gallery (after Bundi's Chitrashala) ---------- */
-.gallery { position: relative; background: var(--teal) url(../assets/art/paper.webp); background-blend-mode: multiply; }
-.gallery__pin { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; display: flex; flex-direction: column; padding-top: var(--nav-h); }
-.gallery .vine { flex: none; height: 34px; }
-.gallery__track { flex: 1; min-height: 0; display: flex; align-items: center; width: max-content; will-change: transform; }
-.gallery__intro { flex: none; width: min(46rem, 62vw); padding: 0 clamp(40px, 7vw, 120px) 0 var(--gutter); }
-.gallery__intro h2 { font-size: clamp(3rem, 7vw, 6.4rem); line-height: 1.1; color: var(--gold-light); }
-.gallery__intro p { margin-top: 1em; max-width: 26em; }
-.gallery__nudge { display: flex; align-items: center; gap: 14px; font-size: .9rem; color: var(--gold-light); }
-.gallery__nudge i { display: block; width: 70px; height: 1px; background: currentColor; }
-.ritual { flex: none; display: flex; align-items: center; gap: clamp(26px, 3.4vw, 56px); height: 100%; padding: 14px clamp(36px, 4.5vw, 80px); }
-.ritual__art { flex: none; height: min(100%, 76vh); max-height: calc(100vh - 190px); aspect-ratio: 880 / 1120; object-fit: contain; filter: drop-shadow(0 14px 22px rgba(4, 22, 28, .45)); }
-.ritual__text { width: clamp(280px, 26vw, 400px); }
-.ritual__n { font-family: var(--display); font-size: clamp(2.6rem, 4.4vw, 4rem); line-height: 1; color: var(--gold-light); }
-.ritual__title { font-size: clamp(2rem, 3.4vw, 3.1rem); margin: .2em 0 .35em; color: var(--cream); }
-.ritual__desc { color: #e9e0c8; }
-.gallery__lamps { position: absolute; left: 0; right: 0; bottom: 46px; display: flex; justify-content: center; gap: clamp(12px, 2vw, 26px); pointer-events: none; }
-.lamp { width: 26px; height: 22px; position: relative; }
-.lamp::before { content: ""; position: absolute; left: 3px; right: 3px; bottom: 0; height: 9px; background: #8d4a22; border-radius: 0 0 14px 14px; }
-.lamp::after { content: ""; position: absolute; left: 9px; bottom: 8px; width: 8px; height: 13px; background: #f6c655; border-radius: 50% 50% 50% 50% / 70% 70% 30% 30%; box-shadow: 0 0 12px 4px rgba(246, 198, 85, .6); opacity: 0; transition: opacity .9s; }
-.lamp.is-on::after { opacity: 1; }
-
 /* ---------- Across India, to the Narmada ---------- */
 .route { position: relative; background: linear-gradient(#123f46, #172c4e 62%, #1a2b52); padding: clamp(70px, 13vh, 140px) var(--gutter) clamp(30px, 6vh, 70px); text-align: center; overflow: hidden; }
 .route__map { display: block; width: 100%; max-width: 1120px; margin: 0 auto; overflow: visible; }
@@ -213,18 +194,6 @@ main { position: relative; z-index: 1; }
 
 /* ---------- Portrait and small screens: recomposed, not shrunk ---------- */
 @media (max-width: 900px), (orientation: portrait) {
-  .gallery__pin { position: static; height: auto; display: block; overflow: visible; padding-top: 0; }
-  .gallery__track { display: block; width: auto; transform: none !important; }
-  .gallery__intro { width: auto; padding: clamp(70px, 12vh, 110px) var(--gutter) 30px; text-align: center; }
-  .gallery__intro p { margin-inline: auto; }
-  .gallery__nudge { display: none; }
-  .gallery__lamps { display: none; }
-  .ritual { display: block; height: auto; padding: 26px var(--gutter) 46px; text-align: center; }
-  .ritual__art { width: min(100%, 460px); height: auto; max-height: none; margin: 0 auto; }
-  .ritual__text { width: auto; max-width: 30em; margin: 14px auto 0; }
-  .ritual:not(.is-in) .ritual__art { opacity: 0; transform: translateX(var(--from, -26px)); }
-  .ritual__art { transition: opacity 1.2s ease, transform 1.4s cubic-bezier(.2, .7, .2, 1); }
-  .ritual:nth-child(even) { --from: 26px; }
 }
 @media (max-width: 720px) {
   :root { --nav-h: 52px; }
@@ -268,13 +237,5 @@ main { position: relative; z-index: 1; }
 .calm .win { --on: 1; }
 .calm .house { --lit: 1; }
 .calm .route__line { stroke-dashoffset: 0; }
-.calm .ritual:not(.is-in) .ritual__art { opacity: 1; transform: none; }
-.calm .gallery__pin { position: static; height: auto; display: block; overflow: visible; padding-top: 0; }
-.calm .gallery__track { display: block; width: auto; padding: 0; }
-.calm .gallery__intro { width: auto; padding: 90px var(--gutter) 30px; text-align: center; }
-.calm .gallery__intro p { margin-inline: auto; }
-.calm .gallery__nudge, .calm .gallery__lamps { display: none; }
-.calm .ritual { justify-content: center; height: auto; padding: 26px var(--gutter) 46px; }
-.calm .ritual__art { height: auto; width: min(100%, 420px); max-height: none; }
 
 .nojs { position: relative; z-index: 50; padding: 90px var(--gutter); background: var(--indigo); }

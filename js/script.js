@@ -21,7 +21,6 @@
     measure();
     addEventListener('scroll', () => requestAnimationFrame(tick), { passive: true });
   }
-  const isHorizontalGallery = () => !calm && innerWidth > 900 && innerWidth > innerHeight;
 
   /* ---------- Language ---------- */
   const store = { get(k) { try { return localStorage.getItem(k); } catch { return null; } }, set(k, v) { try { localStorage.setItem(k, v); } catch { /* private mode */ } } };
@@ -29,21 +28,24 @@
   if (!DATA[lang]) lang = DATA.config.defaultLang;
   const t = key => key.split('.').reduce((o, k) => (o == null ? o : o[k]), DATA[lang]) ?? '';
 
-  function renderRituals() {
-    const track = $('#galleryTrack');
-    $$('.ritual', track).forEach(n => n.remove());
-    t('rituals.items').forEach((r, i) => {
-      const el = document.createElement('article');
-      el.className = 'ritual';
-      el.innerHTML = `<img class="ritual__art" src="assets/art/m${i + 1}.png" alt="" width="760" height="967" loading="lazy" decoding="async">
-        <div class="ritual__text"><p class="ritual__n"></p><h3 class="ritual__title"></h3><p class="ritual__desc"></p></div>`;
-      $('.ritual__art', el).alt = r.alt;
-      $('.ritual__n', el).textContent = r.n;
-      $('.ritual__title', el).textContent = r.title;
-      $('.ritual__desc', el).textContent = r.text;
-      track.append(el);
+  /* Event cards: same layout as the wedding card; text is filled in by applyLanguage via data-i18n */
+  function buildEvents() {
+    const host = $('#events');
+    DATA[lang].events.items.forEach((_, i) => {
+      const k = `events.items.${i}`;
+      const el = document.createElement('div');
+      el.className = 'when';
+      el.innerHTML = `<h3 class="when__label" data-i18n="${k}.heading"></h3>
+        <div class="when__date rv"><span class="when__day" data-i18n="${k}.day"></span><span class="when__my" data-i18n="${k}.monthYear"></span></div>
+        <div class="when__rest rv">
+          <p class="when__line" data-i18n="${k}.line"></p>
+          <p class="when__venue" data-i18n="${k}.venue"></p>
+          <p class="when__line" data-i18n="${k}.place"></p>
+          <a class="textlink" target="_blank" rel="noopener" data-i18n="events.directions"></a>
+        </div>`;
+      $('a', el).href = DATA.config.maps.wedding;
+      host.append(el);
     });
-    observeRituals();
   }
 
   function applyLanguage(next, { refreshLayout = true } = {}) {
@@ -55,7 +57,6 @@
     $$('[data-i18n-alt]').forEach(el => { el.alt = t(el.dataset.i18nAlt); });
     $$('[data-i18n-label]').forEach(el => el.setAttribute('aria-label', t(el.dataset.i18nLabel)));
     $$('[data-lang]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.lang === lang)));
-    renderRituals();
     syncRsvpCopy();
     if (refreshLayout) measure();
   }
@@ -266,9 +267,8 @@
   /* ---------- Scroll machinery: one rAF, one read of scroll per frame ---------- */
   const journey = $('#home'), openingText = $('#openingText'), hintEl = $('#hint'), fortTitle = $('#fortTitle'), birds = $('#birds');
   const world = $('#world'), wallBody = $('.wall__body'), nav = $('#nav');
-  const gallerySection = $('#rituals'), galleryTrack = $('#galleryTrack'), lamps = $('#lamps');
   const routeMap = $('#routeMap'), routeLine = $('#routeLine'), facade = $('#facade');
-  let stage = null, smooth = 0, vw = innerWidth, vh = innerHeight, galleryMax = 0, journeyMax = 1, journeyTop = 0, galleryTop = 0;
+  let stage = null, smooth = 0, vw = innerWidth, vh = innerHeight, journeyMax = 1, journeyTop = 0;
   const drifters = [];
 
   const riverImg = $('#reception .reception__art img:last-child');
@@ -280,19 +280,11 @@
     syncRiver();
     journeyTop = journey.offsetTop;
     journeyMax = Math.max(1, journey.offsetHeight - vh);
-    if (isHorizontalGallery()) {
-      gallerySection.style.height = '';
-      galleryMax = Math.max(0, galleryTrack.scrollWidth - vw);
-      gallerySection.style.height = `${galleryMax + vh}px`;
-    } else {
-      gallerySection.style.height = ''; galleryTrack.style.transform = ''; galleryMax = 0;
-    }
-    galleryTop = gallerySection.getBoundingClientRect().top + scrollY;
     if (stage) stage.resize(vw, Math.max(vh, world.clientHeight));
     if (routeLine.getTotalLength) routeMap.style.setProperty('--len', routeLine.getTotalLength().toFixed(1));
   }
 
-  let lastLamp = -1, lastNow = performance.now(), slowFrames = 0, sampled = 0;
+  let lastNow = performance.now(), slowFrames = 0, sampled = 0;
   function tick(now) {
     const y = scrollY;
     nav.classList.toggle('is-scrolled', y > vh * .25);
@@ -327,14 +319,6 @@
       }
     }
 
-    /* Ritual gallery walks sideways */
-    if (galleryMax > 0) {
-      const gp = clamp((y - galleryTop) / galleryMax);
-      galleryTrack.style.transform = `translate3d(${(-gp * galleryMax).toFixed(1)}px,0,0)`;
-      const lit = Math.floor(gp * 8.6 + .25);
-      if (lit !== lastLamp) { $$('.lamp', lamps).forEach((l, i) => l.classList.toggle('is-on', i < lit)); lastLamp = lit; }
-    }
-
     /* Slow architectural drift, only for what's on screen */
     for (const d of drifters) {
       if (!d.on) continue;
@@ -351,21 +335,12 @@
   }
 
   /* ---------- Things that switch on once ---------- */
-  let ritualObserver = null;
-  function observeRituals() {
-    if (!ritualObserver) return;
-    $$('.ritual').forEach(r => ritualObserver.observe(r));
-  }
   function buildDecor() {
     $$('.winrow').forEach(row => { for (let i = 0; i < 7; i++) { const w = document.createElement('div'); w.className = 'win'; w.style.transitionDelay = `${i * .1}s`; row.append(w); } });
-    for (let i = 0; i < 8; i++) { const l = document.createElement('div'); l.className = 'lamp'; lamps.append(l); }
   }
   function setupObservers() {
     const once = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-in'); once.unobserve(e.target); } }), { threshold: .25 });
     $$('.rv').forEach(el => once.observe(el));
-
-    ritualObserver = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-in'); ritualObserver.unobserve(e.target); } }), { threshold: .2 });
-    observeRituals();
 
     // Facade: the small windows wake first, then each home's jharokha
     const facadeIO = new IntersectionObserver(es => es.forEach(e => {
@@ -392,7 +367,7 @@
     sections.forEach(s => spy.observe(s));
   }
   function currentSection() {
-    const all = ['#home', '.wall', '#families', '#rituals', '.route', '#reception', '#rsvp'].map(s => $(s));
+    const all = ['#home', '.wall', '#families', '.route', '#reception', '#rsvp'].map(s => $(s));
     return all.filter(s => s.getBoundingClientRect().top <= vh * .5).pop() || all[0];
   }
 
@@ -477,9 +452,27 @@
   });
   if (reducedMotion.matches) lightLamp(false);
 
+  /* ---------- Shehnai music: off until the visitor turns it on (browsers block autoplay) ---------- */
+  const audio = $('#shehnai'), soundBtn = $('#soundBtn');
+  const setSound = on => {
+    soundBtn.setAttribute('aria-pressed', String(on));
+    store.set('sound', on ? 'on' : 'off');
+  };
+  const playSound = () => audio.play().then(() => setSound(true)).catch(() => setSound(false));
+  audio.volume = .5;
+  soundBtn.addEventListener('click', () => {
+    if (audio.paused) playSound(); else { audio.pause(); setSound(false); }
+  });
+  // A visitor who left it on gets music from their first tap or scroll, which is when browsers allow it
+  if (store.get('sound') !== 'off') {
+    const start = () => { removeEventListener('pointerdown', start); removeEventListener('keydown', start); if (store.get('sound') !== 'off' && audio.paused) playSound(); };
+    addEventListener('pointerdown', start); addEventListener('keydown', start);
+  }
+  document.addEventListener('visibilitychange', () => { if (document.hidden) audio.pause(); else if (soundBtn.getAttribute('aria-pressed') === 'true') audio.play().catch(() => {}); });
+
   /* ---------- Start ---------- */
   buildDecor();
-  $('#mapWedding').href = DATA.config.maps.wedding;
+  buildEvents();
   $('#mapReception').href = DATA.config.maps.reception;
   setupObservers();
   applyLanguage(lang, { refreshLayout: false });

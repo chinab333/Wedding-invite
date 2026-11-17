@@ -26,7 +26,6 @@
   <nav class="nav__links" id="navLinks" aria-label="Sections">
     <a href="#home" data-i18n="nav.home"></a>
     <a href="#wedding" data-i18n="nav.wedding"></a>
-    <a href="#rituals" data-i18n="nav.rituals"></a>
     <a href="#reception" data-i18n="nav.reception"></a>
     <a href="#rsvp" data-i18n="nav.rsvp"></a>
   </nav>
@@ -35,6 +34,10 @@
     <span aria-hidden="true">|</span>
     <button type="button" data-lang="en" lang="en">English</button>
   </div>
+  <button class="sound" id="soundBtn" type="button" aria-pressed="false" data-i18n-label="sound.label">
+    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z" fill="currentColor"/><path class="sound__on" d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"/><path class="sound__off" d="M16 9.5l5 5M21 9.5l-5 5"/></svg>
+  </button>
+  <audio id="shehnai" src="assets/audio/shehnai.mp3" loop preload="none"></audio>
 </header>
 
 <!-- The painted world behind the journey: first paint is a still, then the WebGL camera takes over -->
@@ -61,7 +64,7 @@
       <svg class="birds" id="birds" viewBox="0 0 120 40" aria-hidden="true"><g fill="none" stroke="#2b1a20" stroke-width="1.6" stroke-linecap="round"><path d="M4 24c5-6 9-6 12-1 3-5 7-5 12 1"/><path d="M48 10c5-6 9-6 12-1 3-5 7-5 12 1"/><path d="M88 28c4-5 7-5 10-1 2-4 6-4 10 1"/></g></svg>
       <div class="fort-title" id="fortTitle">
         <p class="fort-title__om" data-i18n="fort.invocation"></p>
-        <img class="fort-title__ganesh" src="assets/art/ganesha.png" alt="" width="240" height="250">
+        <img class="fort-title__ganesh" src="assets/art/ganesha-720.png" alt="" width="240" height="250">
       </div>
     </div>
     <!-- Calm version: for reduced motion or no WebGL -->
@@ -118,37 +121,9 @@
           </article>
         </div>
         <p class="invite__msg rv" data-i18n="announce.message"></p>
-        <div class="when">
-          <h3 class="when__label" data-i18n="wedding.heading"></h3>
-          <div class="when__date rv">
-            <span class="when__day" data-i18n="wedding.day"></span>
-            <span class="when__my" data-i18n="wedding.monthYear"></span>
-          </div>
-          <div class="when__rest rv">
-            <p class="when__line"><span data-i18n="wedding.weekday"></span>, <span data-i18n="wedding.time"></span></p>
-            <p class="when__venue" data-i18n="wedding.venue"></p>
-            <p class="when__line" data-i18n="wedding.place"></p>
-            <a class="textlink" id="mapWedding" target="_blank" rel="noopener" data-i18n="wedding.directions"></a>
-          </div>
-        </div>
+        <div id="events"></div>
       </div>
       <div class="winrow winrow--low" aria-hidden="true"></div>
-    </div>
-  </section>
-
-  <section class="gallery" id="rituals" aria-labelledby="ritHead">
-    <div class="gallery__pin" id="galleryPin">
-      <div class="vine vine--top" aria-hidden="true"></div>
-      <div class="gallery__track" id="galleryTrack">
-        <header class="gallery__intro">
-          <h2 id="ritHead" data-i18n="rituals.heading"></h2>
-          <p data-i18n="rituals.intro"></p>
-          <p class="gallery__nudge"><span data-i18n="rituals.nudge"></span><i aria-hidden="true"></i></p>
-        </header>
-        <!-- ritual panels are rendered from content.js -->
-      </div>
-      <div class="gallery__lamps" id="lamps" aria-hidden="true"></div>
-      <div class="vine vine--bottom" aria-hidden="true"></div>
     </div>
   </section>
 
